@@ -1,32 +1,37 @@
-#define MAX 10
-
 #include <stdio.h>
-#include <time.h>
 #include <stdlib.h>
-
+#include <time.h>
 int main(){
     srand(time(NULL));
 
-    int i, vector[10], inverted[10], *p, **aux;
-    for(i=0; i< MAX; i++){   //Cria um vetor aleatório, de tamanho 10, entre 1 e 99
-        vector[i] = rand() % 99 + 1;
+    int i,vector[10], *p, *e, aux;
 
+    //criando um vetor aleatório
+    for(i=0; i<10; i++){
+        vector[i] = rand()%99 + 1;
     }
-    p = vector;
-    for(i = 0; i< MAX; i++){   //imprime o vetor criado
-        printf("%i ", vector[i]);
+    printf("Vetor criado\n");
+    //imprime o vetor criado
+    for(i=0; i<10; i++){
+        printf("%d ", vector[i]);
     }
     printf("\n");
+    p = &vector[9];
+    e = &vector;
+    //invertendo as posições
+    i=0;
+    do {
+        aux = *e;
+        vector[i] = *p;
+        vector[9-i]= aux;
+        p--;
+        e++;
+        i++;
+    }while(e < p);
 
-    for (i = 0; i < MAX; i++){     //inventendo as posições do vetor
-        aux = p;
-        p++;
-        inverted[9-i] = *aux;
+    printf("vetor invertido \n");
+    for(i=0; i<10; i++){
+        printf("%d ", vector[i]);
     }
-
-    printf("Novo vetor: \n");
-    for(i = 0; i< MAX; i++){   //imprime o novo vetor
-        printf("%d ", inverted[i]);
-    }
-
+    return 0;
 }
