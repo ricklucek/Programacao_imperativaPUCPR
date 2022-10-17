@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <string.h>
 
 typedef struct {
     int bomba; // 0 ou 1, que diz se a posição tem bomba ou nao
@@ -155,17 +154,30 @@ void jogar(){
     } while (ganhou() != 0 && jogo[linha][coluna].bomba == 0);
 
     if(jogo[linha][coluna].bomba == 1){
-        printf("\n\tFim de Jogo! Você explodiu uma bomba e morreu!\n");
+        printf("\n\tFim de Jogo! Voce explodiu uma bomba\n");
     }else{
         printf("\n\tVocê conseguiu limpar o campo!\n");
     }
 }
 
 int main(){
-    int opcao;
+    int opcao, n;
     do{
         iniciaJogo();
-        sorteandoBombas(10);
+        do {
+            printf("\nEscolha uma dificuldade: \n1-facil \n2-intermediário \n3-dificil\n ");
+            scanf("%d", &n);
+        } while (n>3 || n<=0);
+
+        if(n==1){
+            n = 10;
+        }else if(n == 2){
+            n=15;
+        }else{
+            n=20;
+        }
+
+        sorteandoBombas(n);
         contarBombas();
         printf("\n\t\t\tCampo Minado\n");
         jogar();
